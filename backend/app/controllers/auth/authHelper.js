@@ -29,15 +29,16 @@ function authHelper() {
         // signIn
         async signIn(req) {
             try {
-                const { email, password } = req.body;
-                const user = await User.findOne({ where: { email: email } });
+                const user = await User.findOne({ where: { email: req.body.email } });
                 if (user) {
-                    const isMatch = await bcrypt.compareSync(password, user.password);
+                    const isMatch = await bcrypt.compareSync(req.body.password, user.password);
                     if (!isMatch) {
                         return { success: false, message: 'Invalid credentials!' };
                     }
                     const token = jwt.sign({ id: user.dataValues.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-
+                    // eslint-disable-next-line no-unused-vars
+                    const { password, ...others } = user.dataValues;
+                    req.session.user = others;
                     return { success: true, message: 'User login successful!', data: token };
                 } else {
                     return { success: false, message: 'User does not exist!' };

@@ -14,7 +14,17 @@ services:
       - auth-network
     volumes:
       - postgres-data:/var/lib/postgresql/data
-
+  cache:
+    image: redis:6.2-alpine
+    restart: always
+    ports:
+      - 6379:6379
+    command: redis-server --save 20 1 --loglevel warning --requirepass eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
+    networks:
+      - auth-network
+    volumes:
+      - cache:/var/lib/redis/data
+      
   adminer:
     image: adminer
     container_name: adminer
@@ -30,3 +40,4 @@ networks:
 
 volumes:
   postgres-data:
+  cache:
