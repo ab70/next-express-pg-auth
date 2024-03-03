@@ -1,6 +1,6 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/db.config');
-
+const User = require('./user');
 const ViewCount = sequelize.define('ViewCount', {
     id:{
         type: DataTypes.INTEGER,
@@ -11,7 +11,7 @@ const ViewCount = sequelize.define('ViewCount', {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: { // Foreign key constraint
-            model: 'User',
+            model: User,
             key: 'id'
         },
         unique: true // Ensure each user has one unique profile view count
