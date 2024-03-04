@@ -31,12 +31,14 @@ function authControllers() {
                 }
                 const returnedData = await authHelper().signIn(req);
                 if (returnedData?.success) {
+                    console.log('env', process.env.PROD);
                     // sending jwt token via cookie to client, so it can't be accessed via browser js scrpting for the params.
                     res.cookie('jwt_token', returnedData.data, {
                         expires: new Date(new Date().getTime() + (5 * 60 * 60 * 1000)),
                         httpOnly: process.env.PROD === 'false' ? false : true,
                         sameSite: process.env.PROD === 'false' ? 'lax' : 'none',
                         secure: process.env.PROD === 'false' ? false : true,
+                    
                     }
                     );
                     return responder(res, 200, returnedData.success, returnedData.message);

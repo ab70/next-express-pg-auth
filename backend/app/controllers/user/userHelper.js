@@ -47,6 +47,24 @@ function userHelper() {
                     message: err.message
                 };
             }
+        },
+        // All user with viewCount
+        async getAllUserWithViewCount() {
+            try {
+                const userData = await User.findAll({
+                    attributes: ['id', 'userName', 'email', 'createdAt'],
+                    include: {
+                        model: ViewCount,
+                        attributes: ['viewCount'],
+                    }
+                });
+                return { success: true, message: 'User info fetched successfully', data: userData };
+            } catch (err) {
+                return {
+                    success: false,
+                    message: err.message
+                };
+            }
         }
     };
 }
