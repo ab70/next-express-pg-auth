@@ -24,7 +24,7 @@ const LoginForm = () => {
             const formData = form.getFieldsValue()
             console.log("formData", formData);
             const url = signUp ? "/auth/signup" : "/auth/signin";
-            const response = await axios.post(`${urls.baseUrl}${url}`, formData);
+            const response = await axios.post(`/api${url}`, formData);
             if (response?.data?.success) {
                 form.resetFields()
                 router.push("/dashboard")

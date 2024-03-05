@@ -65,6 +65,22 @@ function userHelper() {
                     message: err.message
                 };
             }
+        },
+        async getAllUsers() {
+            try {
+                const userData = await User.findAll({
+                    attributes: ['id', 'userName'],
+                    raw: true
+                });
+                console.log(userData);
+                return { success: true, message: 'User info fetched successfully', data: userData };
+            } catch (err) {
+                return {
+                    success: false,
+                    message: err.message
+                };
+            }
+
         }
     };
 }
