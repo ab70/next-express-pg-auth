@@ -1,3 +1,38 @@
+# Setup
+
+## Docker
+### Step 1 : 
+```
+sudo docker compose up -d
+```
+This will create docker for redis, postgres and adminer
+### Step 2:
+```
+cd backend/
+npm i
+npm run dev
+
+```
+Backend will be running on localhost:4000
+### Step 3: 
+```
+cd frontend/
+npm i
+npm run dev
+```
+frontend will be running on localhost:3000
+
+# Frontend url
+#### login page 
+```
+localhost:3000/
+```
+#### dahboard (will show user list with details if user is logged in or only username as list)
+```
+localhost:3000/dashboard
+```
+
+
 # API Endpoints Documentation
 
 Welcome to our API documentation. Below you'll find details about various endpoints available in our API along with example POST requests and their corresponding request bodies.
